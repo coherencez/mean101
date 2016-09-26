@@ -20,5 +20,12 @@ angular
 
 	})
 	.controller('ChatCtrl', function($scope, $http) {
-		$scope.title = 'Hello'
+		$scope.title = 'Chat room'
+		$scope.messages = [
+			{author: 'john', content:'hello'},
+			{author: 'jill', content:'heya'},
+			{author: 'john', content:'backatya'},
+			{author: 'jill', content:'nou'},
+			{author: 'scott', content:'get a room'},
+		]
 	})
