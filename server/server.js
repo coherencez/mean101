@@ -7,7 +7,7 @@ const express = require('express')
 app.use(express.static('client'))
 
 app.get('/api/title', (req,res) => {
-  res.send({title: 'HELLO FROM THE SERVER'})
+  res.json({title: 'HELLO FROM THE SERVER'})
 })
 
 app.listen(port, () => {
