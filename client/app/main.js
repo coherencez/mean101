@@ -16,16 +16,12 @@ angular
 	.controller('MainCtrl', function($scope, $http) {
 		$http
 			.get('/api/title')
-			.then(data => $scope.title = data.data.title)
+			.then(({data: {title}}) => $scope.title = title)
 
 	})
 	.controller('ChatCtrl', function($scope, $http) {
 		$scope.title = 'Chat room'
-		$scope.messages = [
-			{author: 'john', content:'hello'},
-			{author: 'jill', content:'heya'},
-			{author: 'john', content:'backatya'},
-			{author: 'jill', content:'nou'},
-			{author: 'scott', content:'get a room'},
-		]
+		$http
+			.get('/api/messages')
+			.then(({data: {messages}}) => $scope.messages = messages)
 	})
