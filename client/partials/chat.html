@@ -6,7 +6,7 @@
 </form>
 <hr />
 <ul>
-
-	<li>John: Hey!</li>
-	<li>Jill: Heya John!</li>
+	<li ng-repeat="msg in messages">
+		{{msg.author}}: {{msg.content}}
+	</li>
 </ul>
