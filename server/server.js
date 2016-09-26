@@ -7,9 +7,11 @@ const  express = require('express')
 
 
   ,  mongoose = require('mongoose')
+  ,  { json } = require('body-parser')
 
 
 app.use(express.static('client'))
+app.use(json())
 
 app.get('/api/title', (req,res) => {
   res.json({title: 'MEAN CHAT'})
@@ -24,6 +26,15 @@ app.get('/api/messages', (req,res,err) => {
   Message
     .find()
     .then(messages => res.json({ messages }))
+    .catch(err)
+})
+
+app.post('/api/messages', (req,res,err) => {
+  console.log("REQ", req.body);
+  const msg = req.body
+  Message
+    .create(msg)
+    .then(msg => res.json(msg))
     .catch(err)
 })
 

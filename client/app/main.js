@@ -21,11 +21,12 @@ angular
 	})
 	.controller('ChatCtrl', function($scope, $http) {
 		$scope.title = 'Chat room'
-		const msg = {
+
+		$scope.sendMessage = () => {
+			const msg = {
 					author: $scope.author, 
 					content: $scope.content
 			}
-		$scope.sendMessage = () => {
 			$http
 				.post('/api/messages', msg)
 				.then(() => $scope.messages.push(msg))
