@@ -46,6 +46,10 @@ app.use((req,res) => {
   res.sendFile(process.cwd() + '/client/index.html')
 })
 
+app.use((err,req,res,next) => {
+  res.status(500).send({code: 500, status: 'Internal Srver Error', details: err.stack})
+})
+
 mongoose.Promise = Promise
 mongoose.connect(MONGODB_URL, () => {
   app.listen(PORT, () => {
