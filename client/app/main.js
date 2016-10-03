@@ -6,7 +6,7 @@ socket.on('disconnect', () => console.log(`disconnected`))
 
 angular
 	.module('mean101', ['ngRoute'])
-	.config($routeProvider =>
+	.config(($routeProvider, $locationProvider) => {
 		$routeProvider
 			.when('/', {
 				controller: 'MainCtrl',
@@ -16,7 +16,12 @@ angular
 				controller: 'ChatCtrl',
 				templateUrl: 'partials/chat.html'
 			})
-	)
+
+			$locationProvider.html5Mode({
+				enabled: true,
+				requireBase: false,
+			})
+	})
 	.controller('MainCtrl', function($scope, $http) {
 		$http
 			.get('/api/title')
