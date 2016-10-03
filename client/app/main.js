@@ -36,6 +36,10 @@ angular
 					author: $scope.author,
 					content: $scope.content
 				}
+
+		  if(socket.connected) {
+				return socket.emit('postMessage', msg)
+			}
 			$http
 				.post('/api/messages', msg)
 				.then(() => $scope.messages.push(msg))
@@ -45,4 +49,10 @@ angular
 		$http
 			.get('/api/messages')
 			.then(({data: {messages}}) => $scope.messages = messages)
+			.catch(console.error)
+
+		socket.on('newMessage', msg => {
+			$scope.messages.push(msg)
+			$scope.apply()
+		})
 	})
