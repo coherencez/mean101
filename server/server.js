@@ -34,7 +34,7 @@ app.post('/api/messages', (req,res,err) => {
   const msg = req.body
   Message
     .create(msg)
-    .then(msg => res.json(msg))
+    .then(msg => res.status(201).json(msg))
     .catch(err)
 })
 
