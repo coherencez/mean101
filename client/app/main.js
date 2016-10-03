@@ -1,8 +1,12 @@
 'use strict'
 
+const socket = io()
+socket.on('connect', () => console.log(`socket connected`, socket))
+socket.on('disconnect', () => console.log(`disconnected`))
+
 angular
 	.module('mean101', ['ngRoute'])
-	.config($routeProvider => 
+	.config($routeProvider =>
 		$routeProvider
 			.when('/', {
 				controller: 'MainCtrl',
@@ -24,14 +28,15 @@ angular
 
 		$scope.sendMessage = () => {
 			const msg = {
-					author: $scope.author, 
+					author: $scope.author,
 					content: $scope.content
-			}
+				}
 			$http
 				.post('/api/messages', msg)
 				.then(() => $scope.messages.push(msg))
 				.catch(console.error)
 		}
+
 		$http
 			.get('/api/messages')
 			.then(({data: {messages}}) => $scope.messages = messages)
