@@ -1,7 +1,11 @@
 'use strict'
 
 const  express = require('express')
+  ,   {Server} = require('http')
+  ,   socketio = require('socket.io')
   ,        app = express()
+  ,     server = Server(app)
+  ,         io = socketio(server)
   ,       PORT = process.env.PORT || 3000
   ,MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/meanchat'
 
@@ -52,7 +56,12 @@ app.use((err,req,res,next) => {
 
 mongoose.Promise = Promise
 mongoose.connect(MONGODB_URL, () => {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Now listening on PORT ${PORT}`)
   })
+})
+
+io.on('connection', socket => {
+  console.log(`Socket connected: ${socket.id}`)
+  socket.on('disconnect', () => console.log(`socket disconnected: ${socket.id}`))
 })
