@@ -62,7 +62,6 @@ io.on('connection', socket => {
 
 function createMessage(reqOrMsg, res, next) {
   const msg = reqOrMsg.body || reqOrMsg
-
   Message
     .create(msg)
     .then(msg => {

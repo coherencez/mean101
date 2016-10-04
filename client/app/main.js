@@ -3,7 +3,6 @@
 const socket = io()
 socket.on('connect', () => console.log(`socket connected`, socket))
 socket.on('disconnect', () => console.log(`disconnected`))
-
 angular
 	.module('mean101', ['ngRoute'])
 	.config(($routeProvider, $locationProvider) => {
@@ -26,9 +25,10 @@ angular
 		$http
 			.get('/api/title')
 			.then(({data: {title}}) => $scope.title = title)
+			.catch(console.error)
 
 	})
-	.controller('ChatCtrl', function($scope, $http) {
+	.controller('ChatCtrl', function($scope, $http, $route) {
 		$scope.title = 'Chat room'
 
 		$scope.sendMessage = () => {
